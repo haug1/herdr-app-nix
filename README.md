@@ -13,3 +13,7 @@ Use `nix profile add .` to install the desktop package. Use `nix run .#herdr-cor
 For NixOS or Home Manager, add this flake as an input named `herdr-app` and include `inputs.herdr-app.packages.${pkgs.stdenv.hostPlatform.system}.default` in `environment.systemPackages` or `home.packages`.
 
 The flake pins both release versions and archive hashes. To update the releases, change the pins in `herdr-app.nix` and `herdr-core.nix`, then run `nix build .#herdr-app .#herdr-core`. [Desktop release manifest](https://releases.herdr.dev/app/latest.json) · [Core release manifest](https://releases.herdr.dev/core/latest.json)
+
+## Binary cache
+
+GitHub Actions builds the x86-64 Linux package. Builds on `main` publish the app and its runtime dependencies to `haug1.cachix.org` when the repository has a `CACHIX_AUTH_TOKEN` secret with write access to that cache. Run **Build and cache Herdr** from the Actions tab to publish after adding the secret.
