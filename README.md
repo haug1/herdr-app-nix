@@ -17,3 +17,7 @@ Renovate opens pull requests that update the Herdr releases and their matching x
 ## Binary cache
 
 GitHub Actions builds the x86-64 Linux package when a Nix file, `flake.lock`, or the build workflow changes. Builds on `main` publish the app and its runtime dependencies to `haug1.cachix.org` when the repository has a `CACHIX_AUTH_TOKEN` secret with write access to that cache. Run **Build and cache Herdr** from the Actions tab to build or publish manually.
+
+## License
+
+The Nix packaging code is licensed under 0BSD. Herdr Desktop and Herdr Core are distributed under Apache-2.0, and the packages include their upstream license and third-party notices. [Packaging license](LICENSE)
