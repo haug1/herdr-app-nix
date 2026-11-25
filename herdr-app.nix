@@ -22,13 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "0.1.18";
 
   src = fetchurl {
-    url = "https://releases.herdr.dev/app/${finalAttrs.version}/herdr-app-linux-${stdenv.hostPlatform.parsed.cpu.name}.tar.gz";
-    hash =
-      {
-        x86_64-linux = "sha256-ihHt153UCzSfcobPUZELYuIRNtr48DAFqf0sTcWDD4M=";
-        aarch64-linux = "sha256-O/UVBcsefWHmPM3CZV6IGfS0Urq+rZki/ku2/mnpE1A=";
-      }
-      .${stdenv.hostPlatform.system};
+    url = "https://releases.herdr.dev/app/${finalAttrs.version}/herdr-app-linux-x86_64.tar.gz";
+    sha256 = "8a11edd79dd40b349f7286cf51910b62e21136daf8f03005a9fd2c4dc5830f83";
   };
 
   nativeBuildInputs = [
@@ -99,9 +94,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "herdr-app";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" ];
   };
 })

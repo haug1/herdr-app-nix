@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "semanticCommits": "enabled",
+  "automerge": false,
+  "nix": {
+    "enabled": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "customDatasources": {
+    "herdr": {
+      "defaultRegistryUrlTemplate": "https://releases.herdr.dev/{{{packageName}}}/latest.json",
+      "transformTemplates": [
+        "($digest := targets.\"linux-x86_64\".sha256; {\"releases\": $exists($match($digest, /^[0-9a-f]{64}$/)) ? [{\"version\": version, \"digest\": $digest, \"changelogContent\": notes}] : []})"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)herdr-(app|core)\\.nix$/"],
+      "matchStrings": [
+        "pname = \"herdr-(?<packageName>app|core)\";\\s+version = \"(?<currentValue>[^\"]+)\";\\s+src = fetchurl \\{\\s+url = \"[^\"]+\";\\s+sha256 = \"(?<currentDigest>[a-f0-9]{64})\";"
+      ],
+      "depNameTemplate": "herdr-{{{packageName}}}",
+      "datasourceTemplate": "custom.herdr",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["custom.herdr"],
+      "groupName": "Herdr releases",
+      "separateMajorMinor": false
+    }
+  ]
+}

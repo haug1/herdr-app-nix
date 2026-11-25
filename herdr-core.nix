@@ -9,13 +9,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "0.1.22";
 
   src = fetchurl {
-    url = "https://releases.herdr.dev/core/${finalAttrs.version}/herdr-core-linux-${stdenvNoCC.hostPlatform.parsed.cpu.name}.tar.gz";
-    hash =
-      {
-        x86_64-linux = "sha256-MFTsOZLOgMVxXXIcqp3O+mBWch0V3BE/R1CvznY7pd8=";
-        aarch64-linux = "sha256-mHV5hSRdRfjXPdheaLE5t/FnwoSIu4nt2YNMP1pc9M8=";
-      }
-      .${stdenvNoCC.hostPlatform.system};
+    url = "https://releases.herdr.dev/core/${finalAttrs.version}/herdr-core-linux-x86_64.tar.gz";
+    sha256 = "3054ec3992ce80c5715d721caa9dcefa6056721d15dc113f4750afce763ba5df";
   };
 
   sourceRoot = ".";
@@ -44,9 +39,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "hc";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" ];
   };
 })
