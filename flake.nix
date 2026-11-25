@@ -5,16 +5,17 @@
 
   outputs =
     { nixpkgs, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+      herdr-core = pkgs.callPackage ./herdr-core.nix { };
+      herdr-app = pkgs.callPackage ./herdr-app.nix { inherit herdr-core; };
+    in
     {
-      packages.x86_64-linux =
-        let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          herdr-core = pkgs.callPackage ./herdr-core.nix { };
-          herdr-app = pkgs.callPackage ./herdr-app.nix { inherit herdr-core; };
-        in
-        {
-          inherit herdr-app herdr-core;
-          default = herdr-app;
-        };
+      packages.${system} = {
+        inherit herdr-app herdr-core;
+        default = herdr-app;
+      };
+      checks.${system}.smoke = pkgs.callPackage ./tests/smoke.nix { inherit herdr-app herdr-core; };
     };
 }
