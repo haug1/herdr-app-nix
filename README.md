@@ -12,7 +12,7 @@ Use `nix profile add .` to install the desktop package. Use `nix run .#herdr-cor
 
 For NixOS or Home Manager, add this flake as an input named `herdr-app` and include `inputs.herdr-app.packages.${pkgs.stdenv.hostPlatform.system}.default` in `environment.systemPackages` or `home.packages`.
 
-Renovate opens pull requests that update the Herdr releases and their matching x86-64 archive checksums together. It also maintains `flake.lock` and the GitHub Actions pins. To update a release by hand, change its version and checksum in `herdr-app.nix` or `herdr-core.nix`, then run `nix build .#herdr-app .#herdr-core`. [Desktop release manifest](https://releases.herdr.dev/app/latest.json) · [Core release manifest](https://releases.herdr.dev/core/latest.json)
+Renovate opens pull requests that update the Herdr releases and their matching x86-64 archive checksums together. It also maintains `flake.lock` and the GitHub Actions pins. Renovate merges its pull requests after CI passes. To update a release by hand, change its version and checksum in `herdr-app.nix` or `herdr-core.nix`, then run `nix build .#herdr-app .#herdr-core`. [Desktop release manifest](https://releases.herdr.dev/app/latest.json) · [Core release manifest](https://releases.herdr.dev/core/latest.json)
 
 ## Binary cache
 
